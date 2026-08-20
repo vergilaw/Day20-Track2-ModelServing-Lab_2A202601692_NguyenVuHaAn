@@ -120,9 +120,9 @@ speedup: 1.74×
 
 **Tại sao nó work** (1–2 đoạn — đây là phần grader đọc kỹ nhất):
 
-Trên máy có 4 nhân vật lý (8 luồng ảo), việc dùng 8 luồng khiến các luồng (Hyper-threading) phải tranh giành chung một băng thông bộ nhớ (memory bandwidth) và sinh ra chi phí điều phối (context switching overhead) cũng như tranh chấp cache (cache thrashing). Quá trình giải mã (decode) bị thắt cổ chai bởi memory bandwidth chứ không phải sức mạnh tính toán. 
+Trên máy có 4 nhân vật lý (8 luồng ảo), việc chạy ở 1 luồng sẽ bị thắt cổ chai ở năng lực tính toán của CPU (compute-bound). Khi nâng lên đúng 4 luồng bằng với số nhân vật lý, tốc độ tăng 1.74× (lên 67.9 tok/s) và chạm ngưỡng thắt cổ chai băng thông bộ nhớ (memory-bandwidth bound). Tại điểm này, các nhân vật lý đã vắt kiệt tối đa lượng RAM có thể đọc mỗi giây.
 
-Khi giới hạn đúng 4 luồng bằng với số nhân vật lý, các nhân hoạt động độc lập và sử dụng tối đa băng thông mà không giẫm chân lên nhau. Điều này chứng minh rằng việc nhồi nhét quá nhiều thread vượt quá số lượng physical cores sẽ phản tác dụng khi memory-bound.
+Tuy nhiên, việc tăng tiếp vượt quá số nhân vật lý (như nhồi 8 luồng) khiến các luồng ảo (Hyper-threading) phải tranh giành chung một băng thông bộ nhớ. Nó sinh ra chi phí điều phối (context switching overhead) và tranh chấp cache (cache thrashing), khiến các luồng giẫm chân lên nhau và hiệu năng sụt giảm ngược lại (xuống 38.9 tok/s). Điều này chứng minh quá trình giải mã (decode) bị giới hạn bởi memory bandwidth chứ không phải CPU, và việc nhồi quá nhiều thread sẽ phản tác dụng.
 
 ---
 
