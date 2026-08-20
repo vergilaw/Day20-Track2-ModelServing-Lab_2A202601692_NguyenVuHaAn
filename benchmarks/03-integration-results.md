@@ -33,7 +33,8 @@ Dominant stage: **llm** (100% of total)
 - **N16 (Gateway/Pipeline):** Real (script `pipeline.py` đóng vai trò điều phối).
 - **N17 (Embeddings):** Stubbed (đang dùng fallback là keyword overlap, thời gian embed = 0.0ms).
 - **N18 (Vector DB / Retrieval):** Stubbed (tìm kiếm trực tiếp bằng keyword, không dùng vector db thực sự).
-- **N19 (LLM):** Real (gọi đến `llama-server` thực sự trên port 8080).
+- **N19 (Vector + features):** Stubbed (không có xử lý logic đặc biệt).
+- **N20 (Serving/LLM):** Real (gọi đến `llama-server` thực sự trên port 8080).
 
 **Giai đoạn chiếm nhiều thời gian nhất (Dominant stage):** LLM (chiếm gần như 100% thời gian - 2917ms). Điều này hoàn toàn đúng dự đoán vì quá trình sinh text (decode) của LLM tốn rất nhiều tài nguyên tính toán và bị thắt cổ chai bởi băng thông bộ nhớ (memory bandwidth).
 
