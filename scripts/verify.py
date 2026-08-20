@@ -102,7 +102,7 @@ def need_file(r: Report, path: pathlib.Path, label: str, how: str) -> pathlib.Pa
     if path.stat().st_size == 0:
         r.fail(f"{label}: {rel} is empty — run `{how}`")
         return None
-    if path.suffix == ".md" and UNANSWERED.search(path.read_text()):
+    if path.suffix == ".md" and UNANSWERED.search(path.read_text(encoding="utf-8")):
         r.fail(f"{label}: {rel} still has an unanswered 'replace this line' section")
         return None
     if is_committed(path) is False:
